@@ -5,6 +5,7 @@
 ## Functions
 
 `random:uniform`
+
 Generates a random number between two inputs using a linear congruential generator.
 
 ```mcfunction
@@ -14,6 +15,7 @@ execute if score $out random matches 30 run say hi!
 ```
 
 `random:binomial`
+
 Generates a random number using a binomial distribution given parameters `n` and `p`.
 
 ```mcfunction
@@ -23,6 +25,7 @@ execute if score $out random matches 3.. run say Got three or more 1s!
 ```
 
 `random:poisson`
+
 Generates a random number using a Poisson distribution given the expected value `lambda`.
 
 ```mcfunction
@@ -32,14 +35,17 @@ execute if score $out random matches 2 run say hi!
 ```
 
 `random:uniform_bitwise`
+
 Generates a random number between -2147483648 and 2147483647 using 32 predicates. Note that `random:uniform` should be more efficient.
 
 `random:uniform_uuid`
+
 Generates a random number between -2147483648 and 2147483647 using a UUID. Note that `random:uniform` should be more efficient.
 
 ## Predicates
 
 `random:coin_toss`
+
 Has a 50% chance of evaluating to true
 
 ```mcfunction
@@ -54,6 +60,7 @@ execute if score <player> <objective> matches 1 run say Tails
 ```
 
 `random:score_invert`
+
 The probability that this predicate passes is the inverse of the value of the "chance" score:
 
 ```mcfunction
@@ -71,6 +78,7 @@ execute if predicate random:score_percentage run say Only 5% of players can see 
 ```
 
 `random:score_ppb`
+
 Same as `random:score_percentage` but the maximum is 1000000000 instead of 1:
 
 ```mcfunction
