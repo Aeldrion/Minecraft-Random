@@ -5,6 +5,8 @@
 
 # Storage
 #define storage random:input
+#define storage random:output
+#define storage random:data
 data merge storage random:input {n: 10, p: 0.5}
 
 # Scoreboard

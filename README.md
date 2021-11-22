@@ -11,7 +11,7 @@ Generates a random number between two inputs using a linear congruential generat
 ```mcfunction
 data merge storage random:input {min: 27, max: 61}
 function random:uniform
-execute if score $out random matches 30 run say hi!
+execute if score $out random matches 30 run say Hello
 ```
 
 ### `random:binomial`
@@ -19,9 +19,19 @@ execute if score $out random matches 30 run say hi!
 Generates a random number using a binomial distribution given parameters `n` and `p`.
 
 ```mcfunction
-data merge storage random:input {n: 10, p: 0.1666667}
+data merge storage random:input {n: 10, p: 0.1666667d}
 function random:binomial
 execute if score $out random matches 3.. run say Got three or more 1s!
+```
+
+### `random:exponential`
+
+Generates a random number using an exponential distribution given the rate `lambda`.
+
+```mcfunction
+data modify storage random:input lambda set value 1f
+function random:exponential
+execute if score $out random matches 2 run say Hello
 ```
 
 ### `random:poisson`
@@ -29,18 +39,29 @@ execute if score $out random matches 3.. run say Got three or more 1s!
 Generates a random number using a Poisson distribution given the expected value `lambda`.
 
 ```mcfunction
-data modify storage random:input lambda set value 5.3
+data modify storage random:input lambda set value 5.3f
 function random:poisson
-execute if score $out random matches 2 run say hi!
+execute if score $out random matches 2 run say Hello
+```
+
+### `random:choose`
+
+Chooses a random tag from a list.
+
+```mcfunction
+data modify storage random:input List set from entity @s Inventory
+function random:choose
+summon minecraft:item ^ ^ ^2 {Item: {id: "minecraft:stone", Count: 1b}}
+execute positioned ^ ^ ^2 run data modify entity @e[type=minecraft:item, sort=nearest, limit=1] Item set from storage random:output Tag
 ```
 
 ### `random:uniform_bitwise`
 
-Generates a random number between -2147483648 and 2147483647 using 32 predicates. Note that `random:uniform` should be more efficient.
+Generates a random number between -2147483648 and 2147483647 using 32 `minecraft:random_chance` predicates. Note that `random:uniform` should be more efficient.
 
 ### `random:uniform_uuid`
 
-Generates a random number between -2147483648 and 2147483647 using a UUID. Note that `random:uniform` should be more efficient.
+Generates a random number between -2147483648 and 2147483647 using a marker's UUID. Note that `random:uniform` should be more efficient.
 
 ## Predicates
 
