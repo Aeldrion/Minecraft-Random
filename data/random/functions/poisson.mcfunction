@@ -6,14 +6,27 @@
 # @input
 #	storage random:input
 #		lambda
-#			The expected value, a number between 0 and 10. Decimal values are supported but only the first decimal place is taken into account.
+#			The expected value, a number between 0.1 and 10
+#			Decimal values are supported but only the first decimal place is taken into account
+# @writes
+#	storage random:input
+#		min
+#			The minimum value for uniform RNG. Reset after the function is run.
+#		max
+#			The maximum value for uniform RNG. Reset after the function is run.
 # @output
 #	score $out random
+#		The Poisson variate, rounded down to an integer.
 
-# Save storage values as scores
+# Save lambda as scores
 execute store result score #lambda_int random run data get storage random:input lambda
 execute store result score #lambda_dec random run data get storage random:input lambda 10
 scoreboard players operation #lambda_dec random %= #10 random
+
+# Make sure lambda is valid
+execute if score #lambda_int random matches ..-1 run scoreboard players set #lambda_int random 0
+execute if score #lambda_int random matches 11.. run scoreboard players set #lambda_int random 10
+execute if score #lambda_int random matches 0 if score #lambda_dec random matches 0 run scoreboard players set #lambda_dec random 1
 
 # Evaluate exp(-l). The result is a number between 0 and 1 (but not 0), we save it with a scale of 2147483648
 execute if score #lambda_int random matches 0 run scoreboard players set #exp(-l) random 32768
@@ -29,21 +42,23 @@ execute if score #lambda_int random matches 9 run scoreboard players set #exp(-l
 execute if score #lambda_int random matches 10 run scoreboard players set #exp(-l) random 2
 
 execute if score #lambda_dec random matches 0 run scoreboard players operation #exp(-l) random *= #65536 random
-execute if score #lambda_dec random matches 1 run scoreboard players operation #exp(-l) random *= #59299 random
-execute if score #lambda_dec random matches 2 run scoreboard players operation #exp(-l) random *= #53656 random
-execute if score #lambda_dec random matches 3 run scoreboard players operation #exp(-l) random *= #48550 random
-execute if score #lambda_dec random matches 4 run scoreboard players operation #exp(-l) random *= #43930 random
-execute if score #lambda_dec random matches 5 run scoreboard players operation #exp(-l) random *= #39750 random
-execute if score #lambda_dec random matches 6 run scoreboard players operation #exp(-l) random *= #35967 random
-execute if score #lambda_dec random matches 7 run scoreboard players operation #exp(-l) random *= #32544 random
-execute if score #lambda_dec random matches 8 run scoreboard players operation #exp(-l) random *= #29447 random
-execute if score #lambda_dec random matches 9 run scoreboard players operation #exp(-l) random *= #26645 random
+execute if score #lambda_dec random matches 1 run scoreboard players operation #exp(-l) random *= #exp(-0.1)*65536 random
+execute if score #lambda_dec random matches 2 run scoreboard players operation #exp(-l) random *= #exp(-0.2)*65536 random
+execute if score #lambda_dec random matches 3 run scoreboard players operation #exp(-l) random *= #exp(-0.3)*65536 random
+execute if score #lambda_dec random matches 4 run scoreboard players operation #exp(-l) random *= #exp(-0.4)*65536 random
+execute if score #lambda_dec random matches 5 run scoreboard players operation #exp(-l) random *= #exp(-0.5)*65536 random
+execute if score #lambda_dec random matches 6 run scoreboard players operation #exp(-l) random *= #exp(-0.6)*65536 random
+execute if score #lambda_dec random matches 7 run scoreboard players operation #exp(-l) random *= #exp(-0.7)*65536 random
+execute if score #lambda_dec random matches 8 run scoreboard players operation #exp(-l) random *= #exp(-0.8)*65536 random
+execute if score #lambda_dec random matches 9 run scoreboard players operation #exp(-l) random *= #exp(-0.9)*65536 random
 
 # Draw random number using Knuth's method
 scoreboard players operation #L random = #exp(-l) random
 scoreboard players set #p random 2147483647
 scoreboard players set #k random -1
 function random:private/poisson_loop
+
+# Clean up
 data remove storage random:input min
 data remove storage random:input max
 scoreboard players operation $out random = #k random

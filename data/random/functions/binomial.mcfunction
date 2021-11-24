@@ -6,9 +6,9 @@
 # @input
 #	storage random:input
 #		n: int
-#			The number of Bernoulli trials
+#			The number of Bernoulli trials. Maximum accepted value is 1000. Otherwise, output is 0.
 #		p: float
-#			The probability of success of each Bernoulli trial
+#			The probability of success of each Bernoulli trial.
 
 # Save storage values as scores
 execute store result score #trials random run data get storage random:input n
@@ -17,9 +17,10 @@ execute store result score $chance random run data get storage random:input p 10
 
 # Run Bernoulli trials on a loop
 scoreboard players set $out random 0
-execute if score #trials random matches 1.. run function random:private/binomial_loop
+execute if score #trials random matches 1..1000 if score #chance random matches 1..1000000000 run function random:private/binomial_loop
 
 # Clean up
 scoreboard players reset #trials random
+execute unless score #save random matches -2147483648..2147483647 run scoreboard players reset $chance random
 execute if score #save random matches -2147483648..2147483647 run scoreboard players operation $chance random = #save random
 scoreboard players reset #save random
