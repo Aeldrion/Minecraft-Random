@@ -12,8 +12,8 @@
 
 # Save scores and tags before modifying them
 execute if score $out random matches -2147483648..2147483647 run scoreboard players operation #save random = $out random
-execute if data storage random:input min run data modify storage random:data Save.min set from storage random:data min
-execute if data storage random:input max run data modify storage random:data Save.max set from storage random:data max
+execute if data storage random:input min run data modify storage random:data Save.min set from storage random:input min
+execute if data storage random:input max run data modify storage random:data Save.max set from storage random:input max
 
 # Choose random index
 data modify storage random:input min set value 1
