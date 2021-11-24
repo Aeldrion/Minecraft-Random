@@ -1,6 +1,7 @@
 #> random:private/binomial_loop
 #
 # Runs a single Bernoulli trial
+# Repeats until #trials is 0
 #
 # @private
 # @within random:binomial

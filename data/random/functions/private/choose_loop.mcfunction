@@ -1,6 +1,7 @@
 #> random:private/choose_loop
 #
 # Recursively selects an NBT tag from a list given index from the end of the list
+# Repeats until #index is 0
 #
 # @private
 # @within random:choose

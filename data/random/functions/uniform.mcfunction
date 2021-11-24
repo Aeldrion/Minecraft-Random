@@ -1,8 +1,9 @@
 #> random:uniform
 #
-# Generates a random number between two given bounds using the LCG method
+# Generates a random number between two given bounds using a linear congruential generator
 #
 # @public
+# @within random:exponential
 # @within random:private/poisson_loop
 # @input
 #	storage random:input
@@ -12,6 +13,7 @@
 #			The maximum value (inclusive)
 # @output
 #	score $out random
+#		An integer in range [min, max]
 
 # Save input parameters as scores
 execute store result score #min random run data get storage random:input min
