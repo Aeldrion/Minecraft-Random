@@ -33,4 +33,3 @@ execute if score #user_min_input random matches -2147483648..2147483647 run scor
 execute if score #user_max_input random matches -2147483648..2147483647 run scoreboard players operation $max random = #user_max_input random
 scoreboard players reset #user_min_input random
 scoreboard players reset #user_max_input random
-scoreboard players reset #user_min_input random
