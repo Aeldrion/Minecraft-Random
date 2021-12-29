@@ -19,7 +19,9 @@ execute store result score $chance random run data get storage random:input p 10
 function random:binomial
 
 # Clean up
-execute unless score #user_chance_input random matches -2147483648..2147483647 run scoreboard players reset $chance random
 execute unless score #user_trials_input random matches -2147483648..2147483647 run scoreboard players reset $trials random
-execute if score #user_chance_input random matches -2147483648..2147483647 run scoreboard players operation $chance random = #user_chance_input random
+execute unless score #user_chance_input random matches -2147483648..2147483647 run scoreboard players reset $chance random
 execute if score #user_trials_input random matches -2147483648..2147483647 run scoreboard players operation $trials random = #user_trials_input random
+execute if score #user_chance_input random matches -2147483648..2147483647 run scoreboard players operation $chance random = #user_chance_input random
+scoreboard players reset #user_trials_input random
+scoreboard players reset #user_chance_input

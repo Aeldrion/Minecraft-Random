@@ -18,3 +18,4 @@ function random:poisson
 # Clean up
 execute unless score #user_lambda_input random matches -2147483648..2147483647 run scoreboard players reset $lambda random
 execute if score #user_lambda_input random matches -2147483648..2147483647 run scoreboard players operation $lambda random = #user_lambda_input random
+scoreboard players reset #user_lambda_input random

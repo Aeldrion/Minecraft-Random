@@ -19,7 +19,10 @@ execute store result score $max random run data get storage random:input p 10000
 function random:uniform
 
 # Clean up
-execute unless score #user_max_input random matches -2147483648..2147483647 run scoreboard players reset $max random
 execute unless score #user_min_input random matches -2147483648..2147483647 run scoreboard players reset $min random
-execute if score #user_max_input random matches -2147483648..2147483647 run scoreboard players operation $max random = #user_max_input random
+execute unless score #user_max_input random matches -2147483648..2147483647 run scoreboard players reset $max random
 execute if score #user_min_input random matches -2147483648..2147483647 run scoreboard players operation $min random = #user_min_input random
+execute if score #user_max_input random matches -2147483648..2147483647 run scoreboard players operation $max random = #user_max_input random
+scoreboard players reset #user_min_input random
+scoreboard players reset #user_max_input random
+scoreboard players reset #user_min_input random
