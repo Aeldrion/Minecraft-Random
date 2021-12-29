@@ -10,11 +10,12 @@ Generates a random number between `$min` and `$max` using a linear congruential 
 The generated value is saved to score `$out random`.
 
 ```mcfunction
-data merge storage random:input {min: 27, max: 61}
 scoreboard players set $min random 1
 scoreboard players set $max random 6
 function random:uniform
 ```
+
+![Generating 10000 numbers in range 0-10](https://cdn.discordapp.com/attachments/925818091475202118/925820349537472552/unknown.png)
 
 ### `random:binomial`
 
@@ -27,6 +28,8 @@ scoreboard players set $chance 166666667
 function random:binomial
 ```
 
+![Generating 10000 numbers with n=5 and p=0.5](https://cdn.discordapp.com/attachments/925818091475202118/925820827851698236/unknown.png)
+
 ### `random:exponential`
 
 Generates a random number using an exponential distribution given the rate `lambda` with a scale of 100.
@@ -37,6 +40,8 @@ scoreboard players set $lambda random 100
 function random:exponential
 ```
 
+![Generating 10000 exponential variates with lambda=1.0](https://cdn.discordapp.com/attachments/925818091475202118/925821029820026910/unknown.png)
+
 ### `random:poisson`
 
 Generates a random number using a Poisson distribution given the expected value `lambda` with a scale of 10.
@@ -46,6 +51,8 @@ The generated value is saved to score `$out random`.
 scoreboard players set $lambda random 50
 function random:poisson
 ```
+
+![Generating 10000 Poisson variates with lambda=2.0](https://cdn.discordapp.com/attachments/925818091475202118/925821198309392484/unknown.png)
 
 ### `random:number_provider`
 
