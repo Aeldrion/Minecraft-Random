@@ -11,13 +11,13 @@
 #		The tag that is chosen
 
 # Save scores and tags before modifying them
-execute if score $out random matches -2147483648..2147483647 run scoreboard players operation #save random = $out random
-execute if data storage random:input min run data modify storage random:data Save.min set from storage random:input min
-execute if data storage random:input max run data modify storage random:data Save.max set from storage random:input max
+execute if score $min random matches -2147483648..2147483647 run scoreboard players operation #user_min_input random = $min random
+execute if score $max random matches -2147483648..2147483647 run scoreboard players operation #user_max_input random = $max random
+execute if score $out random matches -2147483648..2147483647 run scoreboard players operation #user_out_value random = $out random
 
 # Choose random index
-data modify storage random:input min set value 1
-execute store result storage random:input max int 1 if data storage random:input List[]
+scoreboard players set $min random 1
+execute store result score $max random if data storage random:input List[]
 function random:uniform
 scoreboard players operation #index random = $out random
 
@@ -27,11 +27,12 @@ execute if data storage random:data List[0] run function random:private/choose_l
 
 # Clean up
 data remove storage random:data List
-data remove storage random:input min
-data remove storage random:input max
-execute if data storage random:data Save.min run data modify storage random:input min set from storage random:data Save.min
-execute if data storage random:data Save.max run data modify storage random:input max set from storage random:data Save.max
-data remove storage random:data Save
-execute unless score #save random matches -2147483648..2147483647 run scoreboard players reset $out random
-execute if score #save random matches -2147483648..2147483647 run scoreboard players operation $out random = #save random
-scoreboard players reset #save random
+execute unless score #user_min_input random matches -2147483648..2147483647 run scoreboard players reset $min random
+execute unless score #user_max_input random matches -2147483648..2147483647 run scoreboard players reset $max random
+execute unless score #user_out_value random matches -2147483648..2147483647 run scoreboard players reset $out random
+execute if score #user_min_input random matches -2147483648..2147483647 run scoreboard players operation $min random = #user_min_input random
+execute if score #user_max_input random matches -2147483648..2147483647 run scoreboard players operation $max random = #user_max_input random
+execute if score #user_out_value random matches -2147483648..2147483647 run scoreboard players operation $out random = #user_out_value random
+scoreboard players reset #user_min_input random
+scoreboard players reset #user_max_input random
+scoreboard players reset #user_out_value random
