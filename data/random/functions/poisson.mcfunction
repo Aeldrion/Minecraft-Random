@@ -49,9 +49,16 @@ execute if score #lambda_dec random matches 9 run scoreboard players operation #
 scoreboard players operation #L random = #exp(-l) random
 scoreboard players set #p random 2147483647
 scoreboard players set #k random -1
+execute if score $min random matches -2147483648..2147483647 run scoreboard players operation #user_min_input random = $min random
+execute if score $max random matches -2147483648..2147483647 run scoreboard players operation #user_max_input random = $max random
 function random:private/poisson_loop
+scoreboard players operation $out random = #k random
 
 # Clean up
-data remove storage random:input min
-data remove storage random:input max
-scoreboard players operation $out random = #k random
+execute unless score #user_min_input random matches -2147483648..2147483647 run scoreboard players reset $min random
+execute unless score #user_max_input random matches -2147483648..2147483647 run scoreboard players reset $max random
+execute if score #user_min_input random matches -2147483648..2147483647 run scoreboard players operation $min random = #user_min_input random
+execute if score #user_max_input random matches -2147483648..2147483647 run scoreboard players operation $max random = #user_max_input random
+scoreboard players reset #user_min_input random
+scoreboard players reset #user_max_input random
+scoreboard players reset #user_min_input random
