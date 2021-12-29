@@ -4,26 +4,19 @@
 #
 # @public
 # @input
-#	storage random:input
-#		lambda
-#			The expected value, a number between 0.1 and 10
-#			Decimal values are supported but only the first decimal place is taken into account
-# @writes
-#	storage random:input
-#		min
-#			The minimum value for uniform RNG. Reset after the function is run.
-#		max
-#			The maximum value for uniform RNG. Reset after the function is run.
+#	score $lambda random
+#		The expected value with a scale of 10, a number between 1 and 100
 # @output
 #	score $out random
 #		The Poisson variate, rounded down to an integer.
 
-# Save lambda as scores
-execute store result score #lambda_int random run data get storage random:input lambda
-execute store result score #lambda_dec random run data get storage random:input lambda 10
+# Save expected value as two scores
+scoreboard players operation #lambda_int random = $lambda random
+scoreboard players operation #lambda_int random /= #10 random
+scoreboard players operation #lambda_dec random = $lambda random
 scoreboard players operation #lambda_dec random %= #10 random
 
-# Make sure lambda is valid
+# Make sure expected value is valid
 execute if score #lambda_int random matches ..-1 run scoreboard players set #lambda_int random 0
 execute if score #lambda_int random matches 11.. run scoreboard players set #lambda_int random 10
 execute if score #lambda_int random matches 0 if score #lambda_dec random matches 0 run scoreboard players set #lambda_dec random 1

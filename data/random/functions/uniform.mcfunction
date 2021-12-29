@@ -6,20 +6,18 @@
 # @within random:exponential
 # @within random:private/poisson_loop
 # @input
-#	storage random:input
-#		min
-#			The minimum value (inclusive)
-#		max
-#			The maximum value (inclusive)
+#	score $min random
+#		The minimum value (inclusive)
+#	score $max random
+#		The maximum value (inclusive)
 # @output
 #	score $out random
 #		An integer in range [min, max]
 
-# Save input parameters as scores
-execute store result score #min random run data get storage random:input min
-execute store result score #max random run data get storage random:input max
-scoreboard players operation #max random -= #min random
-scoreboard players add #max random 1
+# Calculate size of range
+scoreboard players operation #size random = $min random
+scoreboard players operation #size random -= $max random
+scoreboard players add #size random 1
 
 # Xn+1 = (aXn + c) mod m
 scoreboard players operation #lcg random *= #lcg_a random
@@ -31,5 +29,5 @@ scoreboard players operation $out random = #lcg random
 scoreboard players operation $out random /= #8 random
 
 # Get within desired range
-scoreboard players operation $out random %= #max random
-scoreboard players operation $out random += #min random
+scoreboard players operation $out random %= #size random
+scoreboard players operation $out random += $min random
