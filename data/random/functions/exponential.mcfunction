@@ -2,6 +2,7 @@
 #
 # Generates a random number following a geometric distribution by rounding down exponential variates with expected value lambda
 # This results in a geometric distribution of parameter p = exp(-lambda) / (1 - exp(-lambda)), supported on {0, 1, 2, 3, ...}
+# For a geometric distribution supported on {1, 2, 3, ...} with a given probability p, use random:geometric
 #
 # @public
 # @input
@@ -9,6 +10,7 @@
 #		The rate or inverse scale used for the exponential variates with a scale of 100
 # @output
 #	score $out random
+#		The exponential variate rounded down to an integer in {0, 1, 2, 3, ...}
 
 # Generate a random number between 0 and 1M
 execute if score $min random matches -2147483648..2147483647 run scoreboard players operation #user_min_input random = $min random

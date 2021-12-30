@@ -8,7 +8,7 @@
 #		The expected value with a scale of 10, a number between 1 and 100
 # @output
 #	score $out random
-#		The Poisson variate, rounded down to an integer.
+#		The Poisson variate, rounded down to an integer in {0, 1, 2, 3, ...}
 
 # Save expected value as two scores
 scoreboard players operation #lambda_int random = $lambda random

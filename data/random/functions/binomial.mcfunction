@@ -8,6 +8,9 @@
 #		The number of Bernoulli trials. Maximum accepted value is 1000. Otherwise, output is 0.
 #	score $chance random
 #		The probability of success of each Bernoulli trial, with a scale of 1,000,000,000.
+# @output
+#	score $out random
+#		An integer in [0, n]
 
 scoreboard players operation #trials random = $trials random
 scoreboard players set $out random 0
