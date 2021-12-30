@@ -4,16 +4,16 @@
 # @within random:number_provider
 # @input
 #	storage random:input
-#		n: int
-#			The number of Bernoulli min. Maximum accepted value is 1000. Otherwise, output is 0.
-#		p: float
-#			The probability of success of each Bernoulli trial.
+#		min: int
+#			The minimum value
+#		max: int
+#			The maximum value
 
 # Save storage values as scores
 execute if score $min random matches -2147483648..2147483647 run scoreboard players operation #user_min_input random = $min random
 execute if score $max random matches -2147483648..2147483647 run scoreboard players operation #user_max_input random = $max random
-execute store result score $min random run data get storage random:input n
-execute store result score $max random run data get storage random:input p 1000000000
+execute store result score $min random run data get storage random:input min
+execute store result score $max random run data get storage random:input max
 
 # Run main function
 function random:uniform
