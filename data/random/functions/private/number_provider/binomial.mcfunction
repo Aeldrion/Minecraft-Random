@@ -24,4 +24,4 @@ execute unless score #user_chance_input random matches -2147483648..2147483647 r
 execute if score #user_trials_input random matches -2147483648..2147483647 run scoreboard players operation $trials random = #user_trials_input random
 execute if score #user_chance_input random matches -2147483648..2147483647 run scoreboard players operation $chance random = #user_chance_input random
 scoreboard players reset #user_trials_input random
-scoreboard players reset #user_chance_input
+scoreboard players reset #user_chance_input random
