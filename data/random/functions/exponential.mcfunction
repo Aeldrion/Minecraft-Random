@@ -1,11 +1,12 @@
 #> random:exponential
 #
-# Generates a random number with exponential distribution of expected value lambda
+# Generates a random number following a geometric distribution by rounding down exponential variates with expected value lambda
+# This results in a geometric distribution of parameter p = exp(-lambda) / (1 - exp(-lambda)), supported on {0, 1, 2, 3, ...}
 #
 # @public
 # @input
 #	score $lambda random
-#		The rate or inverse scale with a scale of 100
+#		The rate or inverse scale used for the exponential variates with a scale of 100
 # @output
 #	score $out random
 
