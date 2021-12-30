@@ -34,10 +34,14 @@ execute if data storage random:input {type: "binomial"} run function random:priv
 execute if data storage random:input {type: "minecraft:binomial"} run function random:private/number_provider/binomial
 execute unless data storage random:input type unless data storage random:input min if data storage random:input n if data storage random:input p run function random:private/number_provider/binomial
 
+# Geometric
+execute if data storage random:input {type: "geometric"} run function random:private/number_provider/geometric
+execute if data storage random:input {type: "minecraft:geometric"} run function random:private/number_provider/geometric
+
+# Geometric from exponential
+execute if data storage random:input {type: "exponential"} run function random:private/number_provider/exponential
+execute if data storage random:input {type: "minecraft:exponential"} run function random:private/number_provider/exponential
+
 # Poisson
 execute if data storage random:input {type: "poisson"} run function random:private/number_provider/poisson
 execute if data storage random:input {type: "minecraft:poisson"} run function random:private/number_provider/poisson
-
-# Exponential
-execute if data storage random:input {type: "exponential"} run function random:private/number_provider/exponential
-execute if data storage random:input {type: "minecraft:exponential"} run function random:private/number_provider/exponential
