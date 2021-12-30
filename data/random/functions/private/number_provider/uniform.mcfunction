@@ -1,4 +1,4 @@
-#> random:private/storage_uniform
+#> random:private/number_provider/uniform
 #
 # @private
 # @within random:number_provider

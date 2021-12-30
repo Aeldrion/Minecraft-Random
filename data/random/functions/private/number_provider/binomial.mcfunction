@@ -1,4 +1,4 @@
-#> random:private/storage_binomial
+#> random:private/number_provider/binomial
 #
 # @private
 # @within random:number_provider

@@ -1,4 +1,4 @@
-#> random:private/storage_constant
+#> random:private/number_provider/constant
 #
 # @private
 # @within random:number_provider
