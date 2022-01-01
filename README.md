@@ -1,6 +1,6 @@
 # Random
 
-**Random** is a utility data pack for Minecraft 1.17+ that adds functions for random number generation and predicates for evaluation of random events.
+**Random** is a utility data pack for Minecraft 1.17+ that adds functions for random number generation and randomness-based predicates.
 
 ## Functions
 
@@ -15,11 +15,14 @@ scoreboard players set $max random 6
 function random:uniform
 ```
 
-![Generating 10000 numbers in range 0-10](https://cdn.discordapp.com/attachments/925818091475202118/925820349537472552/unknown.png)
+Note: The resulting distribution is not truly uniform for values of `$max`-`$min`+1 that do not divide ![2^31](https://render.githubusercontent.com/render/math?math=2^31).
+While this is insignificant in almost all cases, `random:true_uniform` implements a method that counters modulo-induced bias.
+
+![Generating 10000 numbers in range 0-10](https://cdn.discordapp.com/attachments/925818091475202118/926850852709359616/unknown.png)
 
 ### `random:binomial`
 
-Generates a random number using a binomial distribution given parameters `$trials` and `$chance`.
+Generates a random number following a binomial distribution given parameters `$trials` and `$chance`.
 The generated value is saved to score `$out random`.
 
 ```mcfunction
@@ -30,9 +33,22 @@ function random:binomial
 
 ![Generating 10000 numbers with n=5 and p=0.5](https://cdn.discordapp.com/attachments/925818091475202118/925820827851698236/unknown.png)
 
+### `random:geometric`
+
+Generates a random number following a geometric distribution given parameter `$chance`, the probability of each Bernoulli trial with a scale of 1,000,000,000.
+The distribution is supported on {1, 2, 3, ...}
+The generated value is saved to score `$out random`.
+
+```mcfunction
+scoreboard players set $chance 300000000
+function random:geometric
+```
+
 ### `random:exponential`
 
-Generates a random number using an exponential distribution given the rate `lambda` with a scale of 100.
+Generates a random number following a geometric distribution by rounding up an exponential variate, given the rate `lambda` of the corresponding exponential distribution
+with a scale of 100. The resulting distribution is a geometric distribution of parameter ![1-exp(-lbda)](https://render.githubusercontent.com/render/math?math=1-e^{\lambda})
+supported on {1, 2, 3, ...}
 The generated value is saved to score `$out random`.
 
 ```mcfunction
@@ -40,7 +56,7 @@ scoreboard players set $lambda random 100
 function random:exponential
 ```
 
-![Generating 10000 exponential variates with lambda=1.0](https://cdn.discordapp.com/attachments/925818091475202118/925821029820026910/unknown.png)
+![Rounding up 10000 exponential variates with lambda=1.0](https://cdn.discordapp.com/attachments/925818091475202118/925821029820026910/unknown.png)
 
 ### `random:poisson`
 
@@ -52,11 +68,26 @@ scoreboard players set $lambda random 50
 function random:poisson
 ```
 
-![Generating 10000 Poisson variates with lambda=2.0](https://cdn.discordapp.com/attachments/925818091475202118/925821198309392484/unknown.png)
+![Generating 10000 Poisson variates with lambda=2.0](https://cdn.discordapp.com/attachments/925818091475202118/926851511345119262/unknown.png)
+
+### `random:true_uniform`
+
+Generates a random number between `$min` and `$max` using a linear congruential generator and countering modulo-induced bias.
+The generated value is saved to score `$out random`.
+For low values of `$min` and `$max`, the bias is negligible and `random:uniform` should be used instead for efficiency.
+
+```mcfunction
+scoreboard players set $min random 1
+scoreboard players set $max random 1000000000
+function random:true_uniform
+```
 
 ### `random:number_provider`
 
-Generates a random number from storage using a syntax similar to number providers. `type` can be `constant`, `uniform`, `binomial`, `exponential` or `poisson`. The `minecraft` namespace can optionally be used. Like vanilla number providers, `type` can be omitted if `min`/`max` or `n`/`p` are specified.
+Generates a random number from storage using a syntax similar to number providers.
+`type` can be `constant`, `uniform`, `binomial`, `geometric`, `exponential` or `poisson`.
+The `minecraft` namespace can optionally be used.
+Like vanilla number providers, `type` can be omitted if `min`/`max` or `n`/`p` are specified.
 
 For type `constant`, the function will return the value of parameter `value`.
 
@@ -66,7 +97,8 @@ data merge storage random:input {type: "constant", value: 5}
 function random:number_provider
 ```
 
-For type `uniform`, the function will return a random number between parameters `min` and `max` (inclusive). `type` is optional as long as `min` and `max` are specified.
+For type `uniform`, the function will return a random number between parameters `min` and `max` (inclusive).
+`type` is optional as long as `min` and `max` are specified.
 
 ```mcfunction
 # Uniform
@@ -74,7 +106,8 @@ data merge storage random:input {type: "uniform", min: 1, max: 6}
 function random:number_provider
 ```
 
-For type `binomial`, the function will return a random binomial variate with `n` trials of probability `p`. `type` is optional as long as `n` and `p` are specified.
+For type `binomial`, the function will return a random number following a binomial distribution with `n` trials of probability `p`.
+`type` is optional as long as `n` and `p` are specified.
 
 ```mcfunction
 # Binomial
@@ -82,7 +115,16 @@ data merge storage random:input {type: "binomial", n: 10, p: 0.166666667d}
 function random:number_provider
 ```
 
-For type `exponential`, the function will return an exponential variate with rate `lambda`. Unlike `random:exponential`, no scale is expected for input.
+For type `geometric`, the function will return a random number following a geometric distribution of parameter `p`.
+
+```mcfunction
+# Geometric
+data merge storage random:input {type: "geometric", p: 0.2d}
+function random:number_provider
+```
+
+For type `exponential`, the function will return a random number following a geometric distribution by rounding down an exponential variate with rate `lambda`.
+Unlike `random:exponential`, no scale is expected for input.
 
 ```mcfunction
 # Exponential
@@ -131,7 +173,7 @@ Succeeds with a probability of 1/`$chance`.
 
 ```mcfunction
 scoreboard players set $chance random 6
-execute if predicate random:score_invert run say 
+execute if predicate random:score_invert run say 1/6
 ```
 
 ### `random:score_percentage`
@@ -140,7 +182,7 @@ Succeeds with probability `$chance` in percents. At 0, the predicate always fail
 
 ```mcfunction
 scoreboard players set $chance random 5
-execute if predicate random:score_percentage run say Only 5% of players can see this secret message!
+execute if predicate random:score_percentage run say 5%
 ```
 
 ### `random:score_ppb`
@@ -149,7 +191,7 @@ Succeeds with probability `$chance` in parts per billion. At 0, the predicate al
 
 ```mcfunction
 scoreboard players set $chance random 123456789
-execute if predicate random:score_ppb run say Only 12.3456789% of players can see this not so secret message!
+execute if predicate random:score_ppb run say 12.3456789%
 ```
 
 ## Version
