@@ -2,7 +2,6 @@
 #
 # Generates a random number following a geometric distribution of probability p, supported on {1, 2, 3, ...}
 # Caps at 1000
-# For a geometric distribution supported on {0, 1, 2, 3, ...} using exponential variates with a given inverse rate, use random:exponential
 #
 # @public
 # @input
