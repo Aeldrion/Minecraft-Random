@@ -44,20 +44,6 @@ scoreboard players set $chance 300000000
 function random:geometric
 ```
 
-### `random:exponential`
-
-Generates a random number following a geometric distribution by rounding up an exponential variate, given the rate `lambda` of the corresponding exponential distribution
-with a scale of 100. The resulting distribution is a geometric distribution of parameter ![1-exp(-lbda)](https://render.githubusercontent.com/render/math?math=1-e^{\lambda})
-supported on {1, 2, 3, ...}
-The generated value is saved to score `$out random`.
-
-```mcfunction
-scoreboard players set $lambda random 100
-function random:exponential
-```
-
-![Rounding up 10000 exponential variates with lambda=1.0](https://cdn.discordapp.com/attachments/925818091475202118/925821029820026910/unknown.png)
-
 ### `random:poisson`
 
 Generates a random number using a Poisson distribution given the expected value `lambda` with a scale of 10.
@@ -200,13 +186,13 @@ This data pack was designed for Minecraft: Java Edition 1.17 and works in 1.18.
 
 Some functions/predicates work in versions before 1.17:
 
-| Function                 | Supported versions                   |
-|--------------------------|--------------------------------------|
-| `random:uniform`         | 1.13+                                |
-| `random:binomial`        | 1.17+                                |
-| `random:exponential`     | 1.13+                                |
-| `random:poisson`         | 1.13+                                |
-| `random:number_provider` | 1.15+, 1.17+ if `type` is `binomial` |
+| Function                 | Supported versions                                  |
+|--------------------------|-----------------------------------------------------|
+| `random:uniform`         | 1.13+                                               |
+| `random:binomial`        | 1.17+                                               |
+| `random:geometric`       | 1.17+                                               |
+| `random:poisson`         | 1.13+                                               |
+| `random:number_provider` | 1.15+, 1.17+ if `type` is `binomial` or `geometric` |
 
 | Predicate                 | Version |
 |---------------------------|---------|
