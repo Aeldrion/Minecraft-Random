@@ -111,15 +111,6 @@ data merge storage random:input {type: "geometric", p: 0.2d}
 function random:number_provider
 ```
 
-For type `exponential`, the function will return a random number following a geometric distribution by rounding down an exponential variate with rate `lambda`.
-Unlike `random:exponential`, no scale is expected for input.
-
-```mcfunction
-# Exponential
-data merge storage random:input {type: "exponential", lambda: 1.0f}
-function random:number_provider
-```
-
 For type `poisson`, the function will return a Poisson variate of expected value `lambda`. Unlike `random:poisson`, no scale is expected for input.
 
 ```mcfunction
