@@ -185,7 +185,8 @@ execute if predicate random:score_ppb run say 12.3456789%
 
 ## Version
 
-This data pack was designed for Minecraft: Java Edition 1.17 and works in 1.18.
+This data pack was designed for Minecraft: Java Edition 1.17 and works in 1.18 and 1.19 snapshots.
+The data pack format in `pack.mcmeta` is 10, but you can safely downgrade it to data pack formats used in previous game versions.
 
 Some functions/predicates work in versions before 1.17:
 
