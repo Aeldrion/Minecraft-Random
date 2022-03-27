@@ -10,8 +10,8 @@ Generates a random number between `$min` and `$max` using a linear congruential 
 The generated value is saved to score `$out random`.
 
 ```mcfunction
-scoreboard players set $min random 1
-scoreboard players set $max random 6
+scoreboard players set $min random 0
+scoreboard players set $max random 10
 function random:uniform
 ```
 
@@ -26,8 +26,8 @@ Generates a random number following a binomial distribution given parameters `$t
 The generated value is saved to score `$out random`.
 
 ```mcfunction
-scoreboard players set $trials random 10
-scoreboard players set $chance 166666667
+scoreboard players set $trials random 5
+scoreboard players set $chance 500000
 function random:binomial
 ```
 
@@ -40,7 +40,7 @@ The distribution is supported on {1, 2, 3, ...}
 The generated value is saved to score `$out random`.
 
 ```mcfunction
-scoreboard players set $chance 300000000
+scoreboard players set $chance 400000000
 function random:geometric
 ```
 
@@ -52,7 +52,7 @@ Generates a random number using a Poisson distribution given the expected value 
 The generated value is saved to score `$out random`.
 
 ```mcfunction
-scoreboard players set $lambda random 50
+scoreboard players set $lambda random 20
 function random:poisson
 ```
 
