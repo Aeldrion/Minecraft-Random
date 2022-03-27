@@ -153,6 +153,16 @@ execute if score <player> <objective> matches 0 run say Heads
 execute if score <player> <objective> matches 1 run say Tails
 ```
 
+### `random:score_fraction`
+
+Succeeds with a probability of `$a`/`$b`.
+
+```mcfunction
+scoreboard players set $a random 7
+scoreboard players set $b random 12
+execute if predicate:score_fraction run say 7/12
+```
+
 ### `random:score_invert`
 
 Succeeds with a probability of 1/`$chance`.
