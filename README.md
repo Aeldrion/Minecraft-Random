@@ -44,6 +44,8 @@ scoreboard players set $chance 300000000
 function random:geometric
 ```
 
+![Generating 10000 numbers with p=0.4](https://cdn.discordapp.com/attachments/925818091475202118/957630561965465610/unknown.png)
+
 ### `random:poisson`
 
 Generates a random number using a Poisson distribution given the expected value `lambda` with a scale of 10.
