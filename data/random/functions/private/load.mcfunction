@@ -12,7 +12,7 @@
 
 # Create scoreboard objective and initialise LCG
 scoreboard objectives add random dummy
-execute store result score #lcg_x random run seed
+execute unless score #lcg random = #lcg random store result score #lcg random run seed
 
 # Define constants
 scoreboard players set #3 random 3
