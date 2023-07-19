@@ -73,7 +73,7 @@ function random:true_uniform
 ### `random:number_provider`
 
 Generates a random number from storage using a syntax similar to number providers.
-`type` can be `constant`, `uniform`, `binomial`, `geometric`, `exponential` or `poisson`.
+`type` can be `constant`, `uniform`, `binomial`, `geometric`, or `poisson`.
 The `minecraft` namespace can optionally be used.
 Like vanilla number providers, `type` can be omitted if `min`/`max` or `n`/`p` are specified.
 
